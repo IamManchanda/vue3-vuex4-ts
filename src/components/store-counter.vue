@@ -3,27 +3,32 @@
     <div class="button-container">
       <button
         class="tw-btn tw-btn-blue"
-        :class="disableButtons === true ? 'tw-btn-disabled' : ''"
+        :class="disableButtons ? 'tw-btn-disabled' : ''"
         @click="handleIncrement"
       >
         Increment
       </button>
       <button
         class="tw-btn tw-btn-red"
-        :class="disableButtons === true ? 'tw-btn-disabled' : ''"
-        @click="handleAsyncIncrement"
+        :class="disableButtons ? 'tw-btn-disabled' : ''"
+        @click="handleTimeoutIncrement"
       >
         Increment (1s)
       </button>
     </div>
-    <h4>Current Count: {{ counter }} | Double Count: {{ doubleCounter }}</h4>
+    <h4>Current Count: {{ count }} | Double Count: {{ doubleCount }}</h4>
   </div>
 </template>
 
 <script lang="ts">
 //#region Imports
 import { computed, defineComponent, reactive, toRefs } from "vue";
-import { ActionTypes, MutationTypes, useStore } from "@/store";
+import { useStore } from "@/store";
+import {
+  ActionTypes as CounterActionTypes,
+  MutationTypes as CounterMutationTypes,
+  GetterTypes as CounterGetterTypes,
+} from "@/store/modules/counter";
 //#endregion
 
 export default defineComponent({
@@ -36,8 +41,9 @@ export default defineComponent({
     //#region Reactive References
     const state = reactive({
       disableButtons: false,
-      counter: computed(() => store.state.counter),
-      doubleCounter: computed(() => store.getters.doubleCounter),
+      count: computed(() => store.state.counter.count),
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
+      doubleCount: computed(getDoubleCount),
     });
     //#endregion
 
@@ -48,16 +54,27 @@ export default defineComponent({
     //#endregion
 
     //#region Methods
-    function handleIncrement() {
-      store.commit(MutationTypes.INCREMENT_COUNTER, 1);
+    function getDoubleCount() {
+      return store.getters[CounterGetterTypes.COUNTER__GET_DOUBLE_COUNT];
     }
 
-    async function handleAsyncIncrement() {
-      try {
-        state.disableButtons = true;
-        await store.dispatch(ActionTypes.ASYNC_INCREMENT_COUNTER, 1);
-      } finally {
-        state.disableButtons = false;
+    function handleIncrement() {
+      if (!state.disableButtons) {
+        store.commit(CounterMutationTypes.COUNTER__HANDLE_INCREMENT, 1);
+      }
+    }
+
+    async function handleTimeoutIncrement() {
+      if (!state.disableButtons) {
+        try {
+          state.disableButtons = true;
+          await store.dispatch(
+            CounterActionTypes.COUNTER__HANDLE_TIMEOUT_INCREMENT,
+            1,
+          );
+        } finally {
+          state.disableButtons = false;
+        }
       }
     }
     //#endregion
@@ -65,7 +82,7 @@ export default defineComponent({
     return {
       ...toRefs(state),
       handleIncrement,
-      handleAsyncIncrement,
+      handleTimeoutIncrement,
     };
   },
 });
