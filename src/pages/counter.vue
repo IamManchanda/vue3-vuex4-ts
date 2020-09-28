@@ -1,20 +1,20 @@
 <template>
   <div class="page-counter">
     <h1>This is a counter page</h1>
-    <store-counter />
+    <reactive-counter />
   </div>
 </template>
 
 <script lang="ts">
 //#region Imports
 import { defineComponent } from "vue";
-import StoreCounter from "@/components/store-counter.vue";
+import ReactiveCounter from "@/components/reactive-counter.vue";
 //#endregion
 
 export default defineComponent({
   name: "page-counter",
   components: {
-    StoreCounter,
+    ReactiveCounter,
   },
 });
 </script>
