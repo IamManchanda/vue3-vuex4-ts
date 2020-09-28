@@ -1,0 +1,12 @@
+ol,
+ul {
+  @apply tw-p-4;
+}
+
+ol {
+  @apply tw-list-decimal;
+}
+
+ul {
+  @apply tw-list-disc;
+}

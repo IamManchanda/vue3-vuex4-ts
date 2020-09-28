@@ -1,6 +1,6 @@
 <template>
-  <div class="page-about">
-    <h1>This is an about page</h1>
+  <div class="page-index">
+    <h1>This is an index page</h1>
   </div>
 </template>
 
@@ -10,7 +10,7 @@ import { defineComponent, reactive, toRefs } from "vue";
 //#endregion
 
 export default defineComponent({
-  name: "page-about",
+  name: "page-index",
   setup() {
     //#region Reactive References
     const state = reactive({});
@@ -33,6 +33,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.page-about {
+.page-index {
 }
 </style>

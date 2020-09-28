@@ -1,0 +1,23 @@
+.tw-btn {
+  @apply tw-font-bold tw-py-2 tw-px-4 tw-rounded;
+
+  &-disabled {
+    @apply tw-opacity-50 tw-cursor-not-allowed;
+  }
+
+  &-blue {
+    @apply tw-bg-blue-500 tw-text-white;
+  }
+
+  &-blue:hover {
+    @apply tw-bg-blue-700;
+  }
+
+  &-red {
+    @apply tw-bg-red-500 tw-text-white;
+  }
+
+  &-red:hover {
+    @apply tw-bg-red-700;
+  }
+}
