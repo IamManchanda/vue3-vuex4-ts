@@ -8,6 +8,7 @@
 <script lang="ts">
 //#region Imports
 import { defineComponent } from "vue";
+
 import HeaderNav from "@/components/header-nav.vue";
 //#endregion
 
