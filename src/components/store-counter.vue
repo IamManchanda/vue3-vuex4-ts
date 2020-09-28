@@ -11,7 +11,7 @@
 
 <script lang="ts">
 //#region Imports
-import { defineComponent, reactive, toRefs } from "vue";
+import { computed, defineComponent, reactive, toRefs } from "vue";
 import { MutationTypes, useStore } from "@/store";
 //#endregion
 
@@ -23,9 +23,10 @@ export default defineComponent({
     //#endregion
 
     //#region Reactive References
-    const state = reactive({});
-    const storedState = reactive(store.state);
-    const storedGetters = reactive(store.getters);
+    const state = reactive({
+      counter: computed(() => store.state.counter),
+      doubleCounter: computed(() => store.getters.doubleCounter),
+    });
     //#endregion
 
     //#region Watchers
@@ -42,8 +43,6 @@ export default defineComponent({
 
     return {
       ...toRefs(state),
-      ...toRefs(storedState),
-      ...toRefs(storedGetters),
       handleIncrement,
     };
   },
