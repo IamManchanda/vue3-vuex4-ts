@@ -10,6 +10,7 @@ import {
   Store as VuexStore,
 } from "vuex";
 import { State as RootState } from "@/store";
+import { GetterTypes, MutationTypes, ActionTypes } from "./enum-types";
 //#endregion
 
 //#region State
@@ -23,10 +24,6 @@ const state: State = {
 //#endregion
 
 //#region Getters
-export enum GetterTypes {
-  COUNTER__GET_DOUBLE_COUNT = "COUNTER__GET_DOUBLE_COUNT",
-}
-
 export type Getters = {
   [GetterTypes.COUNTER__GET_DOUBLE_COUNT](state: State): number;
 };
@@ -37,10 +34,6 @@ const getters: GetterTree<State, RootState> & Getters = {
 //#endregion
 
 //#region Mutations
-export enum MutationTypes {
-  COUNTER__HANDLE_INCREMENT = "COUNTER__HANDLE_INCREMENT",
-}
-
 export interface Mutations {
   [MutationTypes.COUNTER__HANDLE_INCREMENT](
     state: State,
@@ -62,10 +55,6 @@ export type AugmentedActionContext = {
     payload: Parameters<Mutations[K]>[1],
   ): ReturnType<Mutations[K]>;
 } & Omit<ActionContext<State, RootState>, "commit">;
-
-export enum ActionTypes {
-  COUNTER__HANDLE_TIMEOUT_INCREMENT = "COUNTER__HANDLE_TIMEOUT_INCREMENT",
-}
 
 export interface Actions {
   [ActionTypes.COUNTER__HANDLE_TIMEOUT_INCREMENT](

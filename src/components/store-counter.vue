@@ -28,7 +28,7 @@ import {
   ActionTypes as CounterActionTypes,
   MutationTypes as CounterMutationTypes,
   GetterTypes as CounterGetterTypes,
-} from "@/store/modules/counter";
+} from "@/store/modules/counter/enum-types";
 //#endregion
 
 export default defineComponent({
