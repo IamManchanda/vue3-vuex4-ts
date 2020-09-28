@@ -25,9 +25,9 @@
 import { computed, defineComponent, reactive, toRefs } from "vue";
 import { useStore } from "@/store";
 import {
-  GetterConstants,
-  MutationConstants,
-  ActionConstants,
+  GetterConstants as CounterGetterConstants,
+  MutationConstants as CounterMutationConstants,
+  ActionConstants as CounterActionConstants,
 } from "@/store/modules/counter/constants";
 //#endregion
 
@@ -55,12 +55,12 @@ export default defineComponent({
 
     //#region Methods
     function getDoubleCount() {
-      return store.getters[GetterConstants.GetDoubleCount];
+      return store.getters[CounterGetterConstants.GetDoubleCount];
     }
 
     function handleIncrement() {
       if (!state.disableButtons) {
-        store.commit(MutationConstants.HandleIncrement, 1);
+        store.commit(CounterMutationConstants.HandleIncrement, 1);
       }
     }
 
@@ -68,7 +68,10 @@ export default defineComponent({
       if (!state.disableButtons) {
         try {
           state.disableButtons = true;
-          await store.dispatch(ActionConstants.HandleTimeoutIncrement, 1);
+          await store.dispatch(
+            CounterActionConstants.HandleTimeoutIncrement,
+            1,
+          );
         } finally {
           state.disableButtons = false;
         }
