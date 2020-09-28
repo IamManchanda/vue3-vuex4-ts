@@ -1,6 +1,8 @@
 import { createStore } from "vuex";
 
-export type State = { counter: number };
+export type State = {
+  counter: number;
+};
 
 const state: State = {
   counter: 0,
