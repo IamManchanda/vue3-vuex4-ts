@@ -5,13 +5,13 @@ const routes: Array<RouteRecordRaw> = [
     path: "/",
     name: "page-index",
     component: () =>
-      import(/* webpackChunkName: "page-index" */ "../views/index.vue"),
+      import(/* webpackChunkName: "page-index" */ "@/views/index.vue"),
   },
   {
     path: "/about",
     name: "page-about",
     component: () =>
-      import(/* webpackChunkName: "page-about" */ "../views/about.vue"),
+      import(/* webpackChunkName: "page-about" */ "@/views/about.vue"),
   },
 ];
 
