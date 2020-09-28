@@ -10,6 +10,11 @@ const state: State = {
 
 export default createStore({
   state,
+  getters: {
+    counter(state) {
+      return state.counter;
+    },
+  },
   mutations: {
     increment(state) {
       state.counter += 1;
@@ -18,11 +23,6 @@ export default createStore({
   actions: {
     increment({ commit }) {
       commit("increment");
-    },
-  },
-  getters: {
-    counter(state) {
-      return state.counter;
     },
   },
   modules: {},
