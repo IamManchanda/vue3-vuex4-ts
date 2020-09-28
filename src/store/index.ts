@@ -37,9 +37,9 @@ export enum MutationTypes {
   INCREMENT_COUNTER = "INCREMENT_COUNTER",
 }
 
-export type Mutations<S = State> = {
-  [MutationTypes.INCREMENT_COUNTER](state: S, payload: number): void;
-};
+export interface Mutations {
+  [MutationTypes.INCREMENT_COUNTER](state: State, payload: number): void;
+}
 
 const mutations: MutationTree<State> & Mutations = {
   [MutationTypes.INCREMENT_COUNTER](state: State, payload: number) {
@@ -49,16 +49,16 @@ const mutations: MutationTree<State> & Mutations = {
 //#endregion
 
 //#region Actions
-export enum ActionTypes {
-  ASYNC_INCREMENT_COUNTER = "ASYNC_INCREMENT_COUNTER",
-}
-
-type AugmentedActionContext = {
+export type AugmentedActionContext = {
   commit<K extends keyof Mutations>(
     key: K,
     payload: Parameters<Mutations[K]>[1],
   ): ReturnType<Mutations[K]>;
 } & Omit<ActionContext<State, State>, "commit">;
+
+export enum ActionTypes {
+  ASYNC_INCREMENT_COUNTER = "ASYNC_INCREMENT_COUNTER",
+}
 
 export interface Actions {
   [ActionTypes.ASYNC_INCREMENT_COUNTER](
@@ -69,7 +69,9 @@ export interface Actions {
 
 const actions: ActionTree<State, State> & Actions = {
   [ActionTypes.ASYNC_INCREMENT_COUNTER]({ commit }, payload: number) {
-    commit(MutationTypes.INCREMENT_COUNTER, payload);
+    setTimeout(() => {
+      commit(MutationTypes.INCREMENT_COUNTER, payload);
+    }, 1000);
   },
 };
 //#endregion

@@ -4,6 +4,9 @@
       <button class="tw-btn tw-btn-blue" @click="handleIncrement">
         Increment
       </button>
+      <button class="tw-btn tw-btn-red" @click="handleAsyncIncrement">
+        Increment (1s)
+      </button>
     </div>
     <h4>Current Count: {{ counter }} | Double Count: {{ doubleCounter }}</h4>
   </div>
@@ -12,7 +15,7 @@
 <script lang="ts">
 //#region Imports
 import { computed, defineComponent, reactive, toRefs } from "vue";
-import { MutationTypes, useStore } from "@/store";
+import { ActionTypes, MutationTypes, useStore } from "@/store";
 //#endregion
 
 export default defineComponent({
@@ -39,11 +42,16 @@ export default defineComponent({
     function handleIncrement() {
       store.commit(MutationTypes.INCREMENT_COUNTER, 1);
     }
+
+    function handleAsyncIncrement() {
+      store.dispatch(ActionTypes.ASYNC_INCREMENT_COUNTER, 1);
+    }
     //#endregion
 
     return {
       ...toRefs(state),
       handleIncrement,
+      handleAsyncIncrement,
     };
   },
 });
