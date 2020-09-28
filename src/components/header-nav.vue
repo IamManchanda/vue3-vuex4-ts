@@ -1,35 +1,18 @@
 <template>
   <div class="component-header-nav">
     <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/about">About</router-link> |
+    <router-link to="/counter">Counter</router-link>
   </div>
 </template>
 
 <script lang="ts">
 //#region Imports
-import { defineComponent, reactive, toRefs } from "vue";
+import { defineComponent } from "vue";
 //#endregion
 
 export default defineComponent({
   name: "component-header-nav",
-  setup() {
-    //#region Reactive References
-    const state = reactive({});
-    //#endregion
-
-    //#region Watchers
-    //#endregion
-
-    //#region Lifecycle hooks
-    //#endregion
-
-    //#region Methods
-    //#endregion
-
-    return {
-      ...toRefs(state),
-    };
-  },
 });
 </script>
 

@@ -1,6 +1,12 @@
 <template>
   <div class="page-about">
     <h1>This is an about page</h1>
+    <p class="tw-mt-6">
+      <strong>
+        Please navigate to the counter page <br />
+        for state management (vuex) functionality.
+      </strong>
+    </p>
   </div>
 </template>
 

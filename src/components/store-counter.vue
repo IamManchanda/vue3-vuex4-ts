@@ -21,6 +21,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable @typescript-eslint/no-use-before-define */
 //#region Imports
 import { computed, defineComponent, reactive, toRefs } from "vue";
 import { useStore } from "@/store";
@@ -42,7 +43,6 @@ export default defineComponent({
     const state = reactive({
       disableButtons: false,
       count: computed(() => store.state.counter.count),
-      // eslint-disable-next-line @typescript-eslint/no-use-before-define
       doubleCount: computed(getDoubleCount),
     });
     //#endregion
