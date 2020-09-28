@@ -6,7 +6,3 @@ declare module "@vue/runtime-core" {
     $store: Store<State>;
   }
 }
-
-declare module "vuex" {
-  export function useStore(key?: string): Store<State>;
-}
