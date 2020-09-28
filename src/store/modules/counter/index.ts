@@ -39,10 +39,14 @@ const getters: GetterTree<State, RootState> & Getters = {
 
 //#region Mutations
 export interface Mutations {
+  [MutationConstants.HandleResetCount](state: State): void;
   [MutationConstants.HandleIncrement](state: State, payload: number): void;
 }
 
 const mutations: MutationTree<State> & Mutations = {
+  [MutationConstants.HandleResetCount](state: State) {
+    state.count = 0;
+  },
   [MutationConstants.HandleIncrement](state: State, payload: number) {
     state.count += payload;
   },

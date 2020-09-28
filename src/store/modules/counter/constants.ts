@@ -3,6 +3,7 @@ export enum GetterConstants {
 }
 
 export enum MutationConstants {
+  HandleResetCount = "COUNTER/HANDLE_RESET_COUNT",
   HandleIncrement = "COUNTER/HANDLE_INCREMENT",
 }
 

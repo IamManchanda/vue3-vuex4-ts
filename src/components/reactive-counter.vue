@@ -26,7 +26,6 @@
 import {
   computed,
   defineComponent,
-  onMounted,
   onUnmounted,
   reactive,
   toRefs,
@@ -60,11 +59,8 @@ export default defineComponent({
     //#endregion
 
     //#region Lifecycle hooks
-    onMounted(() => {
-      console.log("Counter Mounted");
-    });
     onUnmounted(() => {
-      console.log("Counter Un Mounted");
+      handleResetCount();
     });
     //#endregion
 
@@ -78,6 +74,10 @@ export default defineComponent({
 
     function getDoubleCount() {
       return store.getters[CounterGetterConstants.GetDoubleCount];
+    }
+
+    function handleResetCount() {
+      return store.commit(CounterMutationConstants.HandleResetCount, undefined);
     }
 
     function handleIncrement() {
