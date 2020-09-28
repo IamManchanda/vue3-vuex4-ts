@@ -64,14 +64,17 @@ export interface Actions {
   [ActionTypes.ASYNC_INCREMENT_COUNTER](
     { commit }: AugmentedActionContext,
     payload: number,
-  ): void;
+  ): Promise<void>;
 }
 
 const actions: ActionTree<State, State> & Actions = {
   [ActionTypes.ASYNC_INCREMENT_COUNTER]({ commit }, payload: number) {
-    setTimeout(() => {
-      commit(MutationTypes.INCREMENT_COUNTER, payload);
-    }, 1000);
+    return new Promise(resolve => {
+      setTimeout(() => {
+        commit(MutationTypes.INCREMENT_COUNTER, payload);
+        resolve();
+      }, 1000);
+    });
   },
 };
 //#endregion

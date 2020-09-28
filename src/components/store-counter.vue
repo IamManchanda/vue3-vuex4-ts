@@ -1,10 +1,18 @@
 <template>
   <div class="component-store-counter">
     <div class="button-container">
-      <button class="tw-btn tw-btn-blue" @click="handleIncrement">
+      <button
+        class="tw-btn tw-btn-blue"
+        :class="disableButtons === true ? 'tw-btn-disabled' : ''"
+        @click="handleIncrement"
+      >
         Increment
       </button>
-      <button class="tw-btn tw-btn-red" @click="handleAsyncIncrement">
+      <button
+        class="tw-btn tw-btn-red"
+        :class="disableButtons === true ? 'tw-btn-disabled' : ''"
+        @click="handleAsyncIncrement"
+      >
         Increment (1s)
       </button>
     </div>
@@ -27,6 +35,7 @@ export default defineComponent({
 
     //#region Reactive References
     const state = reactive({
+      disableButtons: false,
       counter: computed(() => store.state.counter),
       doubleCounter: computed(() => store.getters.doubleCounter),
     });
@@ -43,8 +52,13 @@ export default defineComponent({
       store.commit(MutationTypes.INCREMENT_COUNTER, 1);
     }
 
-    function handleAsyncIncrement() {
-      store.dispatch(ActionTypes.ASYNC_INCREMENT_COUNTER, 1);
+    async function handleAsyncIncrement() {
+      try {
+        state.disableButtons = true;
+        await store.dispatch(ActionTypes.ASYNC_INCREMENT_COUNTER, 1);
+      } finally {
+        state.disableButtons = false;
+      }
     }
     //#endregion
 
