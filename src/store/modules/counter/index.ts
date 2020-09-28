@@ -11,9 +11,9 @@ import {
 } from "vuex";
 import { State as RootState } from "@/store";
 import {
-  GETTER_CONSTANTS,
-  MUTATION_CONSTANTS,
-  ACTION_CONSTANTS,
+  GetterConstants,
+  MutationConstants,
+  ActionConstants,
 } from "./constants";
 //#endregion
 
@@ -29,27 +29,21 @@ const state: State = {
 
 //#region Getters
 export type Getters = {
-  [GETTER_CONSTANTS.COUNTER__GET_DOUBLE_COUNT](state: State): number;
+  [GetterConstants.GetDoubleCount](state: State): number;
 };
 
 const getters: GetterTree<State, RootState> & Getters = {
-  [GETTER_CONSTANTS.COUNTER__GET_DOUBLE_COUNT]: state => state.count * 2,
+  [GetterConstants.GetDoubleCount]: state => state.count * 2,
 };
 //#endregion
 
 //#region Mutations
 export interface Mutations {
-  [MUTATION_CONSTANTS.COUNTER__HANDLE_INCREMENT](
-    state: State,
-    payload: number,
-  ): void;
+  [MutationConstants.HandleIncrement](state: State, payload: number): void;
 }
 
 const mutations: MutationTree<State> & Mutations = {
-  [MUTATION_CONSTANTS.COUNTER__HANDLE_INCREMENT](
-    state: State,
-    payload: number,
-  ) {
+  [MutationConstants.HandleIncrement](state: State, payload: number) {
     state.count += payload;
   },
 };
@@ -64,20 +58,17 @@ export type AugmentedActionContext = {
 } & Omit<ActionContext<State, RootState>, "commit">;
 
 export interface Actions {
-  [ACTION_CONSTANTS.COUNTER__HANDLE_TIMEOUT_INCREMENT](
+  [ActionConstants.HandleTimeoutIncrement](
     { commit }: AugmentedActionContext,
     payload: number,
   ): Promise<void>;
 }
 
 const actions: ActionTree<State, RootState> & Actions = {
-  [ACTION_CONSTANTS.COUNTER__HANDLE_TIMEOUT_INCREMENT](
-    { commit },
-    payload: number,
-  ) {
+  [ActionConstants.HandleTimeoutIncrement]({ commit }, payload: number) {
     return new Promise(resolve => {
       setTimeout(() => {
-        commit(MUTATION_CONSTANTS.COUNTER__HANDLE_INCREMENT, payload);
+        commit(MutationConstants.HandleIncrement, payload);
         resolve();
       }, 1000);
     });
