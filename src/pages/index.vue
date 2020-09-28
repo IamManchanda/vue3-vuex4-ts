@@ -7,7 +7,7 @@
 
 <script lang="ts">
 //#region Imports
-import { defineComponent, reactive, toRefs } from "vue";
+import { defineComponent } from "vue";
 import StoreCounter from "@/components/store-counter.vue";
 //#endregion
 
@@ -15,24 +15,6 @@ export default defineComponent({
   name: "page-index",
   components: {
     StoreCounter,
-  },
-  setup() {
-    //#region Reactive References
-    const state = reactive({});
-    //#endregion
-
-    //#region Watchers
-    //#endregion
-
-    //#region Lifecycle hooks
-    //#endregion
-
-    //#region Methods
-    //#endregion
-
-    return {
-      ...toRefs(state),
-    };
   },
 });
 </script>
