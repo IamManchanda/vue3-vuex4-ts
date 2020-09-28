@@ -23,7 +23,15 @@
 <script lang="ts">
 /* eslint-disable @typescript-eslint/no-use-before-define */
 //#region Imports
-import { computed, defineComponent, reactive, toRefs } from "vue";
+import {
+  computed,
+  defineComponent,
+  onMounted,
+  onUnmounted,
+  reactive,
+  toRefs,
+  watch,
+} from "vue";
 import { useStore } from "@/store";
 import {
   GetterConstants as CounterGetterConstants,
@@ -48,12 +56,26 @@ export default defineComponent({
     //#endregion
 
     //#region Watchers
+    watch(() => state.count, watchCounter);
     //#endregion
 
     //#region Lifecycle hooks
+    onMounted(() => {
+      console.log("Counter Mounted");
+    });
+    onUnmounted(() => {
+      console.log("Counter Un Mounted");
+    });
     //#endregion
 
     //#region Methods
+    function watchCounter(newValue: number, oldValue: number) {
+      console.log("The counter has changed!", {
+        newValue,
+        oldValue,
+      });
+    }
+
     function getDoubleCount() {
       return store.getters[CounterGetterConstants.GetDoubleCount];
     }
