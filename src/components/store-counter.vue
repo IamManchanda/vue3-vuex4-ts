@@ -5,14 +5,14 @@
         Increment
       </button>
     </div>
-    <h4>Current Count: {{ counter }}</h4>
+    <h4>Current Count: {{ counter }} | Double Count: {{ doubleCounter }}</h4>
   </div>
 </template>
 
 <script lang="ts">
 //#region Imports
 import { defineComponent, reactive, toRefs } from "vue";
-import { useStore } from "vuex";
+import { MutationTypes, useStore } from "@/store";
 //#endregion
 
 export default defineComponent({
@@ -24,8 +24,8 @@ export default defineComponent({
 
     //#region Reactive References
     const state = reactive({});
-
     const storedState = reactive(store.state);
+    const storedGetters = reactive(store.getters);
     //#endregion
 
     //#region Watchers
@@ -36,13 +36,14 @@ export default defineComponent({
 
     //#region Methods
     function handleIncrement() {
-      store.commit("increment");
+      store.commit(MutationTypes.INCREMENT_COUNTER, 1);
     }
     //#endregion
 
     return {
       ...toRefs(state),
       ...toRefs(storedState),
+      ...toRefs(storedGetters),
       handleIncrement,
     };
   },

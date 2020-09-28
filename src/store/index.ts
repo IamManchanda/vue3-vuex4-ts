@@ -1,5 +1,18 @@
-import { createStore } from "vuex";
+//#region Imports
+import {
+  ActionContext,
+  ActionTree,
+  CommitOptions,
+  createLogger,
+  createStore,
+  DispatchOptions,
+  GetterTree,
+  MutationTree,
+  Store as VuexStore,
+} from "vuex";
+//#endregion
 
+//#region State
 export type State = {
   counter: number;
 };
@@ -7,23 +20,89 @@ export type State = {
 const state: State = {
   counter: 0,
 };
+//#endregion
 
-export default createStore({
-  state,
+//#region Getters
+export type Getters = {
+  doubleCounter(state: State): number;
+};
+
+const getters: GetterTree<State, State> & Getters = {
+  doubleCounter: state => state.counter * 2,
+};
+//#endregion
+
+//#region Mutations
+export enum MutationTypes {
+  INCREMENT_COUNTER = "INCREMENT_COUNTER",
+}
+
+export type Mutations<S = State> = {
+  [MutationTypes.INCREMENT_COUNTER](state: S, payload: number): void;
+};
+
+const mutations: MutationTree<State> & Mutations = {
+  [MutationTypes.INCREMENT_COUNTER](state: State, payload: number) {
+    state.counter += payload;
+  },
+};
+//#endregion
+
+//#region Actions
+export enum ActionTypes {
+  ASYNC_INCREMENT_COUNTER = "ASYNC_INCREMENT_COUNTER",
+}
+
+type AugmentedActionContext = {
+  commit<K extends keyof Mutations>(
+    key: K,
+    payload: Parameters<Mutations[K]>[1],
+  ): ReturnType<Mutations[K]>;
+} & Omit<ActionContext<State, State>, "commit">;
+
+export interface Actions {
+  [ActionTypes.ASYNC_INCREMENT_COUNTER](
+    { commit }: AugmentedActionContext,
+    payload: number,
+  ): void;
+}
+
+const actions: ActionTree<State, State> & Actions = {
+  [ActionTypes.ASYNC_INCREMENT_COUNTER]({ commit }, payload: number) {
+    commit(MutationTypes.INCREMENT_COUNTER, payload);
+  },
+};
+//#endregion
+
+//#region Store
+export type Store = Omit<
+  VuexStore<State>,
+  "commit" | "getters" | "dispatch"
+> & {
+  commit<K extends keyof Mutations, P extends Parameters<Mutations[K]>[1]>(
+    key: K,
+    payload: P,
+    options?: CommitOptions,
+  ): ReturnType<Mutations[K]>;
+} & {
   getters: {
-    counter(state) {
-      return state.counter;
-    },
-  },
-  mutations: {
-    increment(state) {
-      state.counter += 1;
-    },
-  },
-  actions: {
-    increment({ commit }) {
-      commit("increment");
-    },
-  },
-  modules: {},
+    [K in keyof Getters]: ReturnType<Getters[K]>;
+  };
+} & {
+  dispatch<K extends keyof Actions>(
+    key: K,
+    payload: Parameters<Actions[K]>[1],
+    options?: DispatchOptions,
+  ): ReturnType<Actions[K]>;
+};
+
+export const store = createStore({
+  state,
+  getters,
+  mutations,
+  actions,
+  plugins: [createLogger()],
 });
+
+export const useStore = () => store as Store;
+//#endregion

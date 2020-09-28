@@ -6,29 +6,11 @@
 
 <script lang="ts">
 //#region Imports
-import { defineComponent, reactive, toRefs } from "vue";
+import { defineComponent } from "vue";
 //#endregion
 
 export default defineComponent({
   name: "page-about",
-  setup() {
-    //#region Reactive References
-    const state = reactive({});
-    //#endregion
-
-    //#region Watchers
-    //#endregion
-
-    //#region Lifecycle hooks
-    //#endregion
-
-    //#region Methods
-    //#endregion
-
-    return {
-      ...toRefs(state),
-    };
-  },
 });
 </script>
 

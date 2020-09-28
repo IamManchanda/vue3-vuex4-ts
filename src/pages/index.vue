@@ -8,7 +8,6 @@
 <script lang="ts">
 //#region Imports
 import { defineComponent, reactive, toRefs } from "vue";
-
 import StoreCounter from "@/components/store-counter.vue";
 //#endregion
 
