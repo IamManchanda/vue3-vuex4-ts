@@ -5,7 +5,7 @@
         Increment
       </button>
     </div>
-    <h4>Current Count: {{ storedState.counter }}</h4>
+    <h4>Current Count: {{ counter }}</h4>
   </div>
 </template>
 
@@ -23,9 +23,9 @@ export default defineComponent({
     //#endregion
 
     //#region Reactive References
-    const state = reactive({
-      storedState: store.state,
-    });
+    const state = reactive({});
+
+    const storedState = reactive(store.state);
     //#endregion
 
     //#region Watchers
@@ -42,6 +42,7 @@ export default defineComponent({
 
     return {
       ...toRefs(state),
+      ...toRefs(storedState),
       handleIncrement,
     };
   },
