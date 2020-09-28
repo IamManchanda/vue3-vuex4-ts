@@ -1,5 +1,5 @@
 <template>
-  <div class="component-store-counter">
+  <div class="component-reactive-counter">
     <div class="button-container">
       <button
         class="tw-btn tw-btn-blue"
@@ -40,7 +40,7 @@ import {
 //#endregion
 
 export default defineComponent({
-  name: "component-store-counter",
+  name: "component-reactive-counter",
   setup() {
     //#region useComposables
     const store = useStore();
@@ -111,7 +111,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.component-store-counter {
+.component-reactive-counter {
   display: flex;
   flex-direction: column;
   justify-content: center;
