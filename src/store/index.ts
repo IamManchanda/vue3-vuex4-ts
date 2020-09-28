@@ -106,7 +106,7 @@ export const store = createStore({
   getters,
   mutations,
   actions,
-  plugins: [createLogger()],
+  plugins: process.env.NODE_ENV === "production" ? [] : [createLogger()],
 });
 
 export const useStore = () => store as Store;
