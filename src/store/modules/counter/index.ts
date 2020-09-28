@@ -10,7 +10,11 @@ import {
   Store as VuexStore,
 } from "vuex";
 import { State as RootState } from "@/store";
-import { GetterTypes, MutationTypes, ActionTypes } from "./enum-types";
+import {
+  GETTER_CONSTANTS,
+  MUTATION_CONSTANTS,
+  ACTION_CONSTANTS,
+} from "./constants";
 //#endregion
 
 //#region State
@@ -25,24 +29,27 @@ const state: State = {
 
 //#region Getters
 export type Getters = {
-  [GetterTypes.COUNTER__GET_DOUBLE_COUNT](state: State): number;
+  [GETTER_CONSTANTS.COUNTER__GET_DOUBLE_COUNT](state: State): number;
 };
 
 const getters: GetterTree<State, RootState> & Getters = {
-  [GetterTypes.COUNTER__GET_DOUBLE_COUNT]: state => state.count * 2,
+  [GETTER_CONSTANTS.COUNTER__GET_DOUBLE_COUNT]: state => state.count * 2,
 };
 //#endregion
 
 //#region Mutations
 export interface Mutations {
-  [MutationTypes.COUNTER__HANDLE_INCREMENT](
+  [MUTATION_CONSTANTS.COUNTER__HANDLE_INCREMENT](
     state: State,
     payload: number,
   ): void;
 }
 
 const mutations: MutationTree<State> & Mutations = {
-  [MutationTypes.COUNTER__HANDLE_INCREMENT](state: State, payload: number) {
+  [MUTATION_CONSTANTS.COUNTER__HANDLE_INCREMENT](
+    state: State,
+    payload: number,
+  ) {
     state.count += payload;
   },
 };
@@ -57,17 +64,20 @@ export type AugmentedActionContext = {
 } & Omit<ActionContext<State, RootState>, "commit">;
 
 export interface Actions {
-  [ActionTypes.COUNTER__HANDLE_TIMEOUT_INCREMENT](
+  [ACTION_CONSTANTS.COUNTER__HANDLE_TIMEOUT_INCREMENT](
     { commit }: AugmentedActionContext,
     payload: number,
   ): Promise<void>;
 }
 
 const actions: ActionTree<State, RootState> & Actions = {
-  [ActionTypes.COUNTER__HANDLE_TIMEOUT_INCREMENT]({ commit }, payload: number) {
+  [ACTION_CONSTANTS.COUNTER__HANDLE_TIMEOUT_INCREMENT](
+    { commit },
+    payload: number,
+  ) {
     return new Promise(resolve => {
       setTimeout(() => {
-        commit(MutationTypes.COUNTER__HANDLE_INCREMENT, payload);
+        commit(MUTATION_CONSTANTS.COUNTER__HANDLE_INCREMENT, payload);
         resolve();
       }, 1000);
     });

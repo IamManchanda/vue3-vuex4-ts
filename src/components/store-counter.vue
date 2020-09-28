@@ -25,10 +25,10 @@
 import { computed, defineComponent, reactive, toRefs } from "vue";
 import { useStore } from "@/store";
 import {
-  ActionTypes as CounterActionTypes,
-  MutationTypes as CounterMutationTypes,
-  GetterTypes as CounterGetterTypes,
-} from "@/store/modules/counter/enum-types";
+  GETTER_CONSTANTS,
+  MUTATION_CONSTANTS,
+  ACTION_CONSTANTS,
+} from "@/store/modules/counter/constants";
 //#endregion
 
 export default defineComponent({
@@ -55,12 +55,12 @@ export default defineComponent({
 
     //#region Methods
     function getDoubleCount() {
-      return store.getters[CounterGetterTypes.COUNTER__GET_DOUBLE_COUNT];
+      return store.getters[GETTER_CONSTANTS.COUNTER__GET_DOUBLE_COUNT];
     }
 
     function handleIncrement() {
       if (!state.disableButtons) {
-        store.commit(CounterMutationTypes.COUNTER__HANDLE_INCREMENT, 1);
+        store.commit(MUTATION_CONSTANTS.COUNTER__HANDLE_INCREMENT, 1);
       }
     }
 
@@ -69,7 +69,7 @@ export default defineComponent({
         try {
           state.disableButtons = true;
           await store.dispatch(
-            CounterActionTypes.COUNTER__HANDLE_TIMEOUT_INCREMENT,
+            ACTION_CONSTANTS.COUNTER__HANDLE_TIMEOUT_INCREMENT,
             1,
           );
         } finally {

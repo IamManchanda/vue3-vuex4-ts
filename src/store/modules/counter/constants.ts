@@ -1,11 +1,11 @@
-export enum GetterTypes {
+export enum GETTER_CONSTANTS {
   COUNTER__GET_DOUBLE_COUNT = "COUNTER__GET_DOUBLE_COUNT",
 }
 
-export enum MutationTypes {
+export enum MUTATION_CONSTANTS {
   COUNTER__HANDLE_INCREMENT = "COUNTER__HANDLE_INCREMENT",
 }
 
-export enum ActionTypes {
+export enum ACTION_CONSTANTS {
   COUNTER__HANDLE_TIMEOUT_INCREMENT = "COUNTER__HANDLE_TIMEOUT_INCREMENT",
 }
