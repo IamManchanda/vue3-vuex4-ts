@@ -25,6 +25,7 @@
 //#region Imports
 import {
   computed,
+  ComputedRef,
   defineComponent,
   onUnmounted,
   reactive,
@@ -47,11 +48,23 @@ export default defineComponent({
     //#endregion
 
     //#region Reactive References
-    const state = reactive({
+    interface State {
+      disableButtons: boolean;
+      count: number;
+      doubleCount: number;
+    }
+
+    interface ReactiveState {
+      disableButtons: boolean;
+      count: ComputedRef<number>;
+      doubleCount: ComputedRef<number>;
+    }
+
+    const state: State = reactive({
       disableButtons: false,
       count: computed(() => store.state.counter.count),
       doubleCount: computed(getDoubleCount),
-    });
+    } as ReactiveState);
     //#endregion
 
     //#region Watchers
@@ -65,28 +78,28 @@ export default defineComponent({
     //#endregion
 
     //#region Methods
-    function watchCounter(newValue: number, oldValue: number) {
+    function watchCounter(newValue: number, oldValue: number): void {
       console.log("The counter has changed!", {
         newValue,
         oldValue,
       });
     }
 
-    function getDoubleCount() {
+    function getDoubleCount(): number {
       return store.getters[CounterGetterConstants.GetDoubleCount];
     }
 
-    function handleResetCount() {
+    function handleResetCount(): void {
       store.commit(CounterMutationConstants.HandleResetCount, undefined);
     }
 
-    function handleIncrement() {
+    function handleIncrement(): void {
       if (!state.disableButtons) {
         store.commit(CounterMutationConstants.HandleIncrement, 1);
       }
     }
 
-    async function handleTimeoutIncrement() {
+    async function handleTimeoutIncrement(): Promise<void> {
       if (!state.disableButtons) {
         try {
           state.disableButtons = true;
