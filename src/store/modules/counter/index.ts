@@ -28,7 +28,7 @@ const state: State = {
 //#endregion
 
 //#region Getters
-export type Getters = {
+type Getters = {
   [GetterConstants.GetDoubleCount](state: State): number;
 };
 
@@ -38,7 +38,7 @@ const getters: GetterTree<State, RootState> & Getters = {
 //#endregion
 
 //#region Mutations
-export interface Mutations {
+interface Mutations {
   [MutationConstants.HandleResetCount](state: State): void;
   [MutationConstants.HandleIncrement](state: State, payload: number): void;
 }
@@ -54,14 +54,14 @@ const mutations: MutationTree<State> & Mutations = {
 //#endregion
 
 //#region Actions
-export type AugmentedActionContext = {
+type AugmentedActionContext = {
   commit<K extends keyof Mutations>(
     key: K,
     payload: Parameters<Mutations[K]>[1],
   ): ReturnType<Mutations[K]>;
 } & Omit<ActionContext<State, RootState>, "commit">;
 
-export interface Actions {
+interface Actions {
   [ActionConstants.HandleTimeoutIncrement](
     { commit }: AugmentedActionContext,
     payload: number,

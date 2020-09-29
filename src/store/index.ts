@@ -1,9 +1,9 @@
 //#region Imports
 import { createLogger, createStore } from "vuex";
 import {
-  CounterModule,
-  CounterStore,
   State as CounterState,
+  CounterStore,
+  CounterModule,
 } from "./modules/counter";
 //#endregion
 
