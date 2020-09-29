@@ -9,7 +9,8 @@
     @apply tw-bg-blue-500 tw-text-white;
   }
 
-  &-blue:hover {
+  &-blue:hover,
+  &-blue:focus {
     @apply tw-bg-blue-700;
   }
 
@@ -17,7 +18,17 @@
     @apply tw-bg-red-500 tw-text-white;
   }
 
-  &-red:hover {
+  &-red:hover,
+  &-red:focus {
     @apply tw-bg-red-700;
+  }
+
+  &-teal {
+    @apply tw-bg-teal-500 tw-text-white;
+  }
+
+  &-teal:hover,
+  &-teal:focus {
+    @apply tw-bg-teal-700;
   }
 }

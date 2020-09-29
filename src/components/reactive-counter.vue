@@ -2,7 +2,7 @@
   <div class="component-reactive-counter">
     <div class="button-container">
       <button
-        class="tw-btn tw-btn-blue"
+        class="tw-btn tw-btn-teal"
         :class="disableButtons ? 'tw-btn-disabled' : ''"
         @click="handleIncrement"
       >

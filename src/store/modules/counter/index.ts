@@ -83,21 +83,21 @@ const actions: ActionTree<State, RootState> & Actions = {
 //#region Store Type & Module
 export type CounterStore<S = State> = Omit<
   VuexStore<S>,
-  "commit" | "getters" | "dispatch"
+  "getters" | "commit" | "dispatch"
 > & {
+  getters: {
+    [K in keyof Getters]: ReturnType<Getters[K]>;
+  };
+} & {
   commit<K extends keyof Mutations, P extends Parameters<Mutations[K]>[1]>(
     key: K,
     payload: P,
     options?: CommitOptions,
   ): ReturnType<Mutations[K]>;
 } & {
-  getters: {
-    [K in keyof Getters]: ReturnType<Getters[K]>;
-  };
-} & {
-  dispatch<K extends keyof Actions>(
+  dispatch<K extends keyof Actions, P extends Parameters<Actions[K]>[1]>(
     key: K,
-    payload: Parameters<Actions[K]>[1],
+    payload: P,
     options?: DispatchOptions,
   ): ReturnType<Actions[K]>;
 };
