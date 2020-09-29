@@ -77,7 +77,7 @@ export default defineComponent({
     }
 
     function handleResetCount() {
-      return store.commit(CounterMutationConstants.HandleResetCount, undefined);
+      store.commit(CounterMutationConstants.HandleResetCount, undefined);
     }
 
     function handleIncrement() {
